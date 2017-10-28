@@ -18,7 +18,8 @@
   "homepage": "https://github.com/marcuspolk/tinder-events#readme",
   "dependencies": {
     "elasticsearch": "^13.3.1",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
