@@ -1,4 +1,4 @@
 keyname.pem
 /node_modules
-matchData.txt
-swipeData.txt
+matchData.json
+swipeData.json

@@ -1,28 +1,37 @@
 const fs = require('fs');
-
+// const mongo = require('')
 // format for timestamp: 1999-01-08 04:05:06
 
 const genMatch = function() {
-  // 2 mil matches = 4 mil swipes. = 6 mil rows total. then just do 2 mil of swipes for unrequited love and 2 mil user stuff.
-  let uID = Math.floor(Math.random() * 10000000);
-  let mUID = Math.floor(Math.random() * 10000000);
+  let auserid = Math.floor(Math.random() * 10000000);
+  let buserid = Math.floor(Math.random() * 10000000);
   let ts = '' + Date.now()
-  // genSwipe() // put the stuff in here.
-  return {uID, mUID, ts}
-} // genMatch. insert into db. insert swipes right for each to the other.
+  return {auserid, buserid, ts}
+}
 
-function generate(num) {
-  let matchStream = fs.createWriteStream('matchData.txt', {'flags': 'a'});
-  let swipeStream = fs.createWriteStream('swipeData.txt', {'flags': 'a'});
+const generate = function(num) {
+  if (num > 1000000) {
+    while (num > 1000000) {
+      generate(1000000);
+      num -= 1000000;
+    }
+    generate(num);
+    return;
+  }
+  let matchStream = fs.createWriteStream('matchData.json', {'flags': 'a'});
+  let swipeStream = fs.createWriteStream('swipeData.json', {'flags': 'a'});
 
   for (let i = 1; i <= num; i++) {
     let match = genMatch();
-    let matchString = `${match.uID}, ${match.mUID}, ${match.ts}\n`;
-    matchStream.write(matchString);
-    swipeStream.write(`${match.uID}, ${match.mUID}, ${match.ts}\n${match.mUID}, ${match.uID}, ${match.ts}\n`);
-    if (i % 100000 === 0) console.log(i);
+    matchStream.write(JSON.stringify(match) + '\n');
+    let swipeA = {auserid: match.auserid, buserid: match.buserid, swipe: 1, ts: match.ts};
+    let swipeB = {auserid: match.buserid, buserid: match.auserid, swipe: 1, ts: match.ts};
+    swipeStream.write(JSON.stringify(swipeA) + '\n');
+    swipeStream.write(JSON.stringify(swipeB) + '\n');
+    if (i % 250000 === 0) console.log(i);
   }
   matchStream.end();
   swipeStream.end();
 }
-generate(10);
+
+generate(process.argv[2]);

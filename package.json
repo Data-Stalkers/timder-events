@@ -18,8 +18,7 @@
   "homepage": "https://github.com/marcuspolk/tinder-events#readme",
   "dependencies": {
     "elasticsearch": "^13.3.1",
-    "express": "^4.16.2",
-    "pg": "^7.3.0"
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
