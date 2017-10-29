@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
-
+const bodyParser = require('body-parser');
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
    hosts: [ 'http://localhost:9200']
 });
+
+app.use(bodyParser());
 
 app.get('/', function (req, res) {
   client.ping({
@@ -25,7 +27,7 @@ app.post('/swipe', function(req, res) {
   // so i could set up elastic search to pull from mongo data.
   // then just setup a js thing that keeps posting to this route.
   // generating swipes and matches.
-  console.log('someones attempting to post.');
+  console.log(req.body);
   res.status(201).end('thanks for coming');
 });
 
