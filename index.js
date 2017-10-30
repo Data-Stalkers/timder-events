@@ -30,21 +30,24 @@ app.post('/swipe', function(req, res) {
   // then just setup a js thing that keeps posting to this route.
   // generating swipes and matches.
 
-  // mongo.connect('mongodb://localhost:27017/tinderevents'
-  // ,function(err, db) {
-  //   let swipes = db.collection('swipes');
-  //   swipes.insertOne(req.body.swipe);   // {usera, userb, swipe, ts}
-  //   db.close();
-  res.send(req.body.swipe);
-});
+  mongo.connect('mongodb://localhost:27017/tinderevents'
+  ,function(err, db) {
+    if (err) {
+      console.log('ERROR CONNECTING TO MONGODB.', err);
+      return;
+    }
+    let swipes = db.collection('swipes');
+    swipes.insertOne(req.body.swipe, (err, result) => {
+      db.close();
+      if (err) {
+        res.status(400).end('DB WRITE ERROR.');
+      } else {
 
-  // save it into mongo.
-  res.status(201).end('thanks for coming');
-});
-
-app.post('/match', function(req, res) {
-
-});
+        res.status(201).end('swipe recorded in db.');
+      }
+    });
+  });
+})
 
 app.listen(3000, function () {
   console.log('Event service listening on port 3000!')
