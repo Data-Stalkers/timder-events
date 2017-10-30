@@ -1,26 +1,31 @@
-
 const request = require('request');
+const timestamp = require('time-stamp');
 
-//
-// generate a swipe. post it to the node server. maintain a pool of right swipes.
-//
-let x = 0;
-const swipe = () => request(
-        {method: 'POST',
-        uri: 'http://localhost:3000/swipe',
-        json: {num: x++}
-        }
-        , function(err, res, body) {
-          if (err) console.log('err posting swipe', err)
-          else console.log('response ', body);
-        })
-swipe();
+let swipeCount = 0;
+let matchCount = 0;
 
-while (true) {
-  
-}
-// const swipe = function() {
-//   // generate a swipe.
-//   // post to server.
-//   // 30% chance that this will match.
-// }
+const swipeGen = () => {
+  console.log('swipes: ', swipeCount, 'matches:', matchCount);
+  let swipe = Math.random() < 0.56 ? 1 : 0;
+  swipeCount++;
+  let match = 0;
+  if (swipe === 1) match = Math.random() < 0.34 ? 1 : 0;
+  if (match === 1) matchCount++;
+  let swipejson = {usera: Math.floor(Math.random() * 10000000),
+            userb: Math.floor(Math.random() * 10000000),
+            swipe: swipe,
+            match: match,
+            ts: timestamp()};
+  let options = {
+    method: 'POST',
+    uri: 'http://localhost:3000/swipe',
+    json: {swipe: swipejson}
+  }
+  request(options,
+    function(err, res, body) {
+      if (err) console.log('err posting swipe', err)
+      else swipeGen();
+  })
+};
+
+swipeGen();
