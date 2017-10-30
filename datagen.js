@@ -3,10 +3,17 @@ const MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
 // format for timestamp should be: 1999-01-08 04:05:06
+const genTimestamp = function() {
+  let year = '2017';
+  let month = ['08', '09', '10'][Math.floor(Math.random() * 3)];
+  let day = Math.floor(Math.random() * 30) + 1;
+  if (day < 10) day = '0' + day;
+  return `${year}-${month}-${day}`;
+}
 const genMatch = function() {
   let auserid = Math.floor(Math.random() * 10000000);
   let buserid = Math.floor(Math.random() * 10000000);
-  let ts = '' + Date.now()
+  let ts = genTimeStamp();
   return {auserid, buserid, ts}
 }
 

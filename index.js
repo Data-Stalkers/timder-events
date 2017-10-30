@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 const elasticsearch = require('elasticsearch');
 const mongo = require('mongodb');
@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
          console.log('Everything is ok');
      }
  });
-  res.send('Hello World!')
+  res.send('Hello World!');
 })
 
 app.post('/swipe', function(req, res) {
@@ -30,8 +30,8 @@ app.post('/swipe', function(req, res) {
   // then just setup a js thing that keeps posting to this route.
   // generating swipes and matches.
 
-  mongo.connect('mongodb://localhost:27017/tinderevents'
-  ,function(err, db) {
+  mongo.connect('mongodb://localhost:27017/tinderevents',
+  function(err, db) {
     if (err) {
       console.log('ERROR CONNECTING TO MONGODB.', err);
       return;
@@ -42,7 +42,6 @@ app.post('/swipe', function(req, res) {
       if (err) {
         res.status(400).end('DB WRITE ERROR.');
       } else {
-
         res.status(201).end('swipe recorded in db.');
       }
     });
