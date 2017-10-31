@@ -1,4 +1,10 @@
-console.time('execution'); // program generates 10m entries in 21566ms.
+/*
+  insert into db with:
+  mongoimport -d timder -c swipes --type csv --file ../swipes.csv -f usera,userb,swipe,match,ts --numInsertionWorkers 4
+  where numInsertWorkers is the amount of threads in your cpu.
+*/
+
+//console.time('execution'); // program generates 10m entries in 21566ms.
 const fs = require('fs');
 const MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
@@ -28,7 +34,7 @@ let write = function(callback) {
     if (count % 100000 === 0) console.log(count);
     if (count === 0) { //last write.
       swipeStream.write(swipe(), 'utf8');
-      console.timeEnd('execution');
+    //  console.timeEnd('execution');
     }
     ok = swipeStream.write(swipe(), 'utf8');
   } while (count > 0 && ok)
