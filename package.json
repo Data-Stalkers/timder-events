@@ -1,0 +1,30 @@
+{
+  "name": "tinder-events",
+  "version": "1.0.0",
+  "description": "event service for tinder clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcuspolk/tinder-events.git"
+  },
+  "author": "marcus polk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcuspolk/tinder-events/issues"
+  },
+  "homepage": "https://github.com/marcuspolk/tinder-events#readme",
+  "dependencies": {
+    "elasticsearch": "^13.3.1",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "time-stamp": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-react": "^7.4.0"
+  }
+}
