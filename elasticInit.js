@@ -39,7 +39,9 @@ mongo.connect(mongourl, (err, db) => {
 
 let elasticPost = function(dateCount) {
   // query for each item in dateCount. do a write.
-
+  elasticClient.index({
+    index: type: body: 
+  })
 }
 
 
