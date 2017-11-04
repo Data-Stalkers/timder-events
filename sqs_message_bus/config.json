@@ -1,0 +1,4 @@
+{ "accessKeyId": "AKIAIVQU7IMM6H7P3XGQ",
+  "secretAccessKey":"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",
+  "region": "us-west-1",
+  "queueUrl": "https://sqs.us-west-1.amazonaws.com/224532707363/timderswipes"}
