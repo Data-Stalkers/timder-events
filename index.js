@@ -1,12 +1,18 @@
 const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+
 if (cluster.isMaster) {
-  for (var i = 0; i < cpuCount; i += 1) {
+  for (var i = 0; i < numCPUs; i += 1) {
       cluster.fork();
   }
+  cluster.on('exit', (worker, code, signal) => {
+  console.log(`worker ${worker.process.pid} died`);
+});
 }
 else {
-
-// bad indenting but there's a lot going on. let's start from the beginning.
+// bad indenting but there's a lot going on.
+// let's start from the beginning.
+console.log(`Worker ${process.pid} started`);
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -18,7 +24,7 @@ var AWS = require('aws-sdk');
 const awsConfig = require('./sqs-aws/config.json');
 AWS.config.update(awsConfig);
 const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-
+const sqsMessage = require('./sqs-aws/sqs_sendmessage.js');
 // ----------------------------------------
 // NOTE: Actual Express app begins here.
 // ----------------------------------------
@@ -63,9 +69,9 @@ app.post('/swipe', function(req, res) {
         // gotta use the req. body.swipe info. maybe send it to sqs message.
         sqs.sendMessage(sqsMessage(req.body.swipe), function(err, data) {
           if (err) {
-            console.log("Error", err);
+            console.log("Error with Sending to SQS:", err);
           } else {
-            console.log("Success", data.MessageId);
+            console.log("Success sending to SQS with messageId:", data.MessageId);
           }
         });
         res.status(201).end('swipe recorded in db.');
