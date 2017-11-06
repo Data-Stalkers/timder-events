@@ -2,3 +2,4 @@ keyname.pem
 /node_modules
 matchData.json
 swipeData.json
+/sqs-aws/config.json

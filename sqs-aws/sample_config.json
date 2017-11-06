@@ -1,0 +1,4 @@
+{ "accessKeyId": "example",
+  "secretAccessKey":"example",
+  "region": "us-west-1",
+  "queueUrl": "https://sqs.us-west-1.amazonaws.com/example"}
