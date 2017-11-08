@@ -11,6 +11,12 @@ const sqsMessage = function (swipe) {
       match: swipe.match,
       timestamp: swipe.ts
     }),
+    MessageAttributes: {
+      'Swipes': {
+        DataType: 'String',
+        StringValue: 'Swipe Events'
+      }
+    },
     QueueUrl: awsConfig.queueUrl
   }
 };
