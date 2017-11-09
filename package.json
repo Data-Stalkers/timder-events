@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/marcuspolk/tinder-events#readme",
   "dependencies": {
+    "aws-sdk": "^2.145.0",
     "elasticsearch": "^13.3.1",
     "express": "^4.16.2",
     "mongodb": "^2.2.33",
+    "sqs-consumer": "^3.8.0",
     "time-stamp": "^2.0.0"
   },
   "devDependencies": {
